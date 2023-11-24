@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="card">
+                                                    <form id="invitationForm" method="post" action="{% url 'send_invitation' %}">
+                                                        {% csrf_token %}
+                                                    <div class="card-block">
+                                                        <div class="row" style="padding: 5px;
+    margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="sub-title">Send Invitation</div>
+                <div class="form-group row">
+                    <label for="recipient_email" class="col-md-4 col-form-label">Recipient Email</label>
+                    <div class="col-md-8">
+                        {% render_field form.recipient_email id="recipient_email" class="form-control" placeholder="Enter Recipient Email" %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="branch" class="col-md-4 col-form-label">Branch Name*</label>
+                    <div class="col-md-8">
+                        {% render_field form.branch id="branch" class="form-control" placeholder="Select Branch Name" %}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="role" class="col-md-4 col-form-label">Role</label>
+                    <div class="col-md-8">
+                        {% render_field form.role id="role" class="form-control" placeholder="Select Role" %}
+                    </div>
+                </div>
+                    <button type="submit" class="btn btn-primary waves-effect waves-light ">Send Invitation</button>
+            </div>
+
+        </div>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+{% endblock %}

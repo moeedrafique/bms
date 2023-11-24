@@ -1,0 +1,239 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<nav class="pcoded-navbar">
+                        <div class="pcoded-inner-navbar main-menu">
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                        <span class="pcoded-mtext">Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                                        <span class="pcoded-mtext">Products</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="{% url 'all_product' %}">
+                                                <span class="pcoded-mtext">Product List</span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="{% url 'product_add' %}">
+                                                <span class="pcoded-mtext">Add Product</span>
+                                            </a>
+                                        </li>
+<!--                                        <li class=" ">-->
+<!--                                            <a href="{% url 'product_add' %}">-->
+<!--                                                <span class="pcoded-mtext">Categories</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="{% url 'product_add' %}">-->
+<!--                                                <span class="pcoded-mtext">Units</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+                                    </ul>
+                                </li>
+<!--                                <li class="pcoded-hasmenu">-->
+<!--                                    <a href="javascript:void(0)">-->
+<!--                                        <span class="pcoded-micon"><i class="feather icon-gitlab"></i></span>-->
+<!--                                        <span class="pcoded-mtext">Inventory</span>-->
+<!--                                    </a>-->
+<!--                                    <ul class="pcoded-submenu">-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="draggable.htm">-->
+<!--                                                <span class="pcoded-mtext">Draggable</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!--                                <li class="pcoded-hasmenu">-->
+<!--                                    <a href="javascript:void(0)">-->
+<!--                                        <span class="pcoded-micon"><i class="feather icon-shopping-bag"></i></span>-->
+<!--                                        <span class="pcoded-mtext">POS</span>-->
+<!--                                    </a>-->
+<!--                                    <ul class="pcoded-submenu">-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-idle-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="offline.htm">-->
+<!--                                                <span class="pcoded-mtext">Offline</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!--                                <li class="pcoded-hasmenu">-->
+<!--                                    <a href="javascript:void(0)">-->
+<!--                                        <span class="pcoded-micon"><i class="feather icon-dollars"></i></span>-->
+<!--                                        <span class="pcoded-mtext">Expenses</span>-->
+<!--                                    </a>-->
+<!--                                    <ul class="pcoded-submenu">-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-font-awesome.htm">-->
+<!--                                                <span class="pcoded-mtext">Font Awesome</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-themify.htm">-->
+<!--                                                <span class="pcoded-mtext">Themify</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-simple-line.htm">-->
+<!--                                                <span class="pcoded-mtext">Simple Line Icon</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-ion.htm">-->
+<!--                                                <span class="pcoded-mtext">Ion Icon</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-material-design.htm">-->
+<!--                                                <span class="pcoded-mtext">Material Design</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-icofonts.htm">-->
+<!--                                                <span class="pcoded-mtext">Ico Fonts</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-weather.htm">-->
+<!--                                                <span class="pcoded-mtext">Weather Icon</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-typicons.htm">-->
+<!--                                                <span class="pcoded-mtext">Typicons</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="icon-flags.htm">-->
+<!--                                                <span class="pcoded-mtext">Flags</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                                        <span class="pcoded-mtext">Contacts</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-idle-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="offline.htm">-->
+<!--                                                <span class="pcoded-mtext">Offline</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+
+                                    </ul>
+                                </li>
+<!--                                <li class="pcoded-hasmenu">-->
+<!--                                    <a href="javascript:void(0)">-->
+<!--                                        <span class="pcoded-micon"><i class="feather icon-report"></i></span>-->
+<!--                                        <span class="pcoded-mtext">Reports</span>-->
+<!--                                    </a>-->
+<!--                                    <ul class="pcoded-submenu">-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-idle-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="offline.htm">-->
+<!--                                                <span class="pcoded-mtext">Offline</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+
+<!--                                    </ul>-->
+<!--                                </li>-->
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                                        <span class="pcoded-mtext">Users & Roles</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-idle-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="offline.htm">-->
+<!--                                                <span class="pcoded-mtext">Offline</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+                                        <span class="pcoded-mtext">Settings</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="session-idle-timeout.htm">-->
+<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class=" ">-->
+<!--                                            <a href="offline.htm">-->
+<!--                                                <span class="pcoded-mtext">Offline</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+</body>
+</html>

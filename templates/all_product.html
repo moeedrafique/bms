@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+                            <!-- Main-body start -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- HTML5 Export Buttons table start -->
+                                                <div class="card">
+                                                    <div class="card-header table-card-header">
+                                                        <h5> View All Product</h5>
+                                                        <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="feather icon-maximize full-card"></i></li>
+                                                        <li><i class="feather minimize-card icon-minus"></i></li>
+                                                        <li><i class="feather icon-trash-2 close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="dt-responsive table-responsive">
+                                                            <table id="stock-tbl" class="table table-striped table-bordered nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#No</th>
+                                                                        <th>Batch No</th>
+                                                                        <th>Product Name</th>
+                                                                        <th>Category</th>
+                                                                        <th>Stock</th>
+                                                                        <th>Selling Price</th>
+                                                                        <th>Date Created</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for stock in product %}
+                                                            <tr>
+                                                                    <td></td>
+                                                                    <td>{{ stock.batch_number }}</td>
+                                                                    <td>{{ stock.name }} </td>
+                                                                    <td>{{ stock.category }} </td>
+                                                                    <td><strong>{{ stock.quantity }} </strong></td>
+                                                                    <td>{{ stock.selling_price }}</td>
+                                                                    <td>{{ stock.created_at|date:"M d, Y" }}</td>
+                                                                    <td><div class="dropdown dropdown-action" style="width: 159px;">
+                                                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float: left"
+                                                                        ><i class="fa fa-ellipsis-v"></i>
+                                                                        </a>
+                                                                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(23px, 27px, 0px);">
+                                                                        <a href="{% url 'product_add' %}" class="dropdown-item edit_click">
+                                                                        <i class="fa fa-pencil m-r-5"></i>Add Stock </a>
+<!--                                                                        <a href="" class="dropdown-item edit_status "><i class="fa fa-pencil m-r-5"></i>Reduce Stock</a>-->
+                                                                        <a href="" class="dropdown-item edit_branch_click "><i class="fa fa-pencil m-r-5"></i>Edit Product </a>
+                                                                        <button class="delete-product-btn dropdown-item edit_branch_click " data-product-id="{{ stock.id }}"><i class="fa fa-pencil m-r-5"></i>Delete Product </button></div>
+                                                                        </div><style>.dropdown-toggle::after{display:none;}</style></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th>#No</th>
+                                                                        <th>Batch No</th>
+                                                                        <th>Product Name</th>
+                                                                        <th>Category</th>
+                                                                        <th>Stock</th>
+                                                                        <th>Selling Price</th>
+                                                                        <th>Date Created</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- HTML5 Export Buttons end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                            </div>
+                        </div>
+                                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+    // JavaScript
+    $(document).ready(function () {
+        $(".delete-product-btn").click(function () {
+            // Get the product ID from the data attribute
+            var productId = $(this).data('product-id');
+
+            // Confirm deletion (optional)
+            if (confirm("Are you sure you want to delete this product?")) {
+                // Make an AJAX request to the delete_product URL
+                $.ajax({
+                    type: "POST",
+                    url: "/delete-product/" + productId + "/",
+                    success: function (data) {
+                        if (data.success) {
+                            // Optionally, update the UI or perform additional actions after successful deletion
+                            console.log("Product deleted successfully");
+                        } else {
+                            // Handle errors and display messages
+                            console.log("Error deleting product");
+                            // Example: Display errors in an alert
+                            alert("Error deleting product");
+                        }
+                    },
+                    error: function (error) {
+                        // Handle error
+                        console.error("Error deleting product", error);
+                    },
+                });
+            }
+        });
+    });
+</script>
+    {% endblock %}
+</body>
+</html>
