@@ -22,19 +22,13 @@
                                                 <!-- HTML5 Export Buttons table start -->
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5> View All Product</h5>
+                                                        <h5>Stock</h5>
                                                         <div class="card-header-right">
-<div data-v-a2d5948e="" class="col-sm-12 col-md-12">
-    <div data-v-a2d5948e="" class="float-md-right mb-3 mb-sm-3 mb-md-0">
-        <div data-v-a2d5948e="" class="dropdown d-inline-block btn-dropdown">
-            <button data-v-a2d5948e="" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" class="btn btn-success dropdown-toggle ml-0 mr-2">
-                Action
-            </button> <div data-v-a2d5948e="" class="dropdown-menu" style=""><a data-v-a2d5948e="" href="#" class="dropdown-item d-flex align-items-center p-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download size-15 mr-2" data-v-a2d5948e=""><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    Import
-                </a> <a data-v-a2d5948e="" href="#" class="dropdown-item d-flex align-items-center p-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload size-15 mr-2" data-v-a2d5948e=""><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    Export all data
-                </a></div></div>
-        <a data-v-1ccf87a4="" href="{% url 'product_add' %}" class="btn btn-primary" data-v-a2d5948e="">Add Product</a></div></div>
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="feather icon-maximize full-card"></i></li>
+                                                        <li><i class="feather minimize-card icon-minus"></i></li>
+                                                        <li><i class="feather icon-trash-2 close-card"></i></li>
+                                                    </ul>
                                                 </div>
                                                     </div>
                                                     <div class="card-block">
@@ -43,12 +37,10 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#No</th>
-                                                                        <th>Batch No</th>
-                                                                        <th>Product Name</th>
-                                                                        <th>Category</th>
-                                                                        <th>Stock</th>
+                                                                        <th>Product</th>
+                                                                        <th>Quantity</th>
                                                                         <th>Selling Price</th>
-                                                                        <th>Date Created</th>
+                                                                        <th>Category</th>
                                                                         <th>Action</th>
                                                                     </tr>
                                                                 </thead>
@@ -56,12 +48,10 @@
                                                                 {% for stock in product %}
                                                             <tr>
                                                                     <td></td>
-                                                                    <td>{{ stock.batch_number }}</td>
                                                                     <td>{{ stock.name }} </td>
-                                                                    <td>{{ stock.category }} </td>
                                                                     <td><strong>{{ stock.quantity }} </strong></td>
                                                                     <td>{{ stock.selling_price }}</td>
-                                                                    <td>{{ stock.created_at|date:"M d, Y" }}</td>
+                                                                    <td>{{ stock.category }} </td>
                                                                     <td><div class="dropdown dropdown-action" style="width: 159px;">
                                                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float: left"
                                                                         ><i class="fa fa-ellipsis-v"></i>
@@ -76,18 +66,18 @@
                                                             </tr>
                                                             {% endfor %}
                                                         </tbody>
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <th>#No</th>
-                                                                        <th>Batch No</th>
-                                                                        <th>Product Name</th>
-                                                                        <th>Category</th>
-                                                                        <th>Stock</th>
-                                                                        <th>Selling Price</th>
-                                                                        <th>Date Created</th>
-                                                                        <th>Action</th>
-                                                                    </tr>
-                                                                </tfoot>
+<!--                                                                <tfoot>-->
+<!--                                                                    <tr>-->
+<!--&lt;!&ndash;                                                                        <th>#No</th>&ndash;&gt;-->
+<!--                                                                        <th>Product</th>-->
+<!--                                                                        <th>Batch No</th>-->
+<!--                                                                        <th>Category</th>-->
+<!--                                                                        <th>Stock</th>-->
+<!--                                                                        <th>Selling Price</th>-->
+<!--                                                                        <th>Date Created</th>-->
+<!--                                                                        <th>Action</th>-->
+<!--                                                                    </tr>-->
+<!--                                                                </tfoot>-->
                                                             </table>
                                                         </div>
                                                     </div>

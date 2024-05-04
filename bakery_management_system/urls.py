@@ -29,3 +29,4 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'pos.views.handler404'
 handler500 = 'pos.views.handler500'
+handler403 = 'pos.views.permission_denied_handler'  # Configure permission denied handler

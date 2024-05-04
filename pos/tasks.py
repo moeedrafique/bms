@@ -9,7 +9,7 @@ from .models import *
 
 @shared_task
 def check_product_expiry(product_id):
-    product = Product.objects.get(id=product_id)
+    product = Inventory.objects.get(id=product_id)
     if product.expiry_date and product.expiry_date <= timezone.now().date():
         user = User.objects.first()  # Replace with your actual user or user selection logic
         message = f"The product {product.name} has expired."
@@ -19,7 +19,7 @@ def check_product_expiry(product_id):
 
 @shared_task
 def notify_five_days_before_expiry(product_id):
-    product = Product.objects.get(id=product_id)
+    product = Inventory.objects.get(id=product_id)
     expiry_in_five_days = product.expiry_date - timezone.timedelta(days=5)
 
     if timezone.now().date() == expiry_in_five_days:

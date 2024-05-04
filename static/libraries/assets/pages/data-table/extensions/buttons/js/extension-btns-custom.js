@@ -153,7 +153,26 @@ $(document).ready(function() {
             }
         }]
     });
-    $('#basic-btn').DataTable({
+    $('#sales-by-item').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print',
+            {
+                text: 'JSON',
+                action: function(e, dt, button, config) {
+                    var data = dt.buttons.exportData();
+                    $.fn.dataTable.fileSave(new Blob([JSON.stringify(data)]), 'Export.json');
+                }
+            },
+            , 'colvis'
+        ],
+        exportOptions: {
+            columns: [1, 2, 3]
+            //columns: ':not(:last-child)',
+        },
+    });
+
+        $('#basic-btn').DataTable({
         dom: 'lBfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print',
@@ -272,95 +291,6 @@ $(document).ready(function() {
 
     $('#business-cust').DataTable({
         dom: 'lBfrtip',
-        buttons: [
-            {
-                extend: 'copyHtml5',
-                //text: '<img src="http://localhost:3468/Images/user-search.jpeg"/>',
-                text: '<i class="fa fa-files-o"></i>',
-                titleAttr: 'Copy',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
-                    //columns: ':not(:last-child)',
-                },
-                    title: 'All Business Customers Details',
-                //    filename: get_val,
-            },
-            {
-                extend: 'print',
-                stripHtml : false,
-                //text: '<img src="http://127.0.0.1:8000/media/shop-logo/SCE_Logo_2.png"/>',
-                text: '<i class="fa fa-print"></i>',
-                titleAttr: 'Print',
-                //autoPrint: true,
-                //orientation: 'portrait',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
-                    //columns: ':not(:last-child)',
-                },
-                customize: function ( win ) {
-                    $(win.document.body)
-                        .css( 'font-size', '10pt' )
-                        .prepend(
-                            '<h2 class="text-center pt-2">Shoukat Currency Exchange</h2><div class="col-md-12" style="display: flex;justify-content: center;"><img src="https://res.cloudinary.com/dyhg4sjqm/image/upload/v1635770285/Shoukat_CE.png" style="opacity:0.12;width: 50%;position:absolute; top:200px; " /></div>'
-                        );
- 
-                    $(win.document.body).find( 'table' )
-                        .addClass( 'compact' )
-                        .css( 'font-size', 'inherit' );
-                },
-                      title: 'All Business Customers Details',
-                //    filename: get_val,
-            },
-            {
-                extend: 'excelHtml5',
-                text: '<i class="fa fa-file-excel-o"></i>',
-                titleAttr: 'Excel',
-                title: 'All Business Customers Detail',
-                //filename: get_val,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
-                    //columns: [':not(:first-child)'],
-                }
-            },
-            {
-                extend: 'csvHtml5',
-                text: '<i class="fa fa-file-text-o"></i>',
-                titleAttr: 'CSV',
-                title: 'All Business Customers Detail',
-                //filename: get_val,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
-                    //columns: [':not(:first-child)'],
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                text: '<i class="fa fa-file-pdf-o"></i>',
-                titleAttr: 'PDF',
-                orientation: 'landscape',
-                pageSize: 'LEGAL',
-                //filename: get_val,
-                title: 'All Business Customers Detail',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
-                    //columns: [':not(:first-child)', ':not (:14))'],
-                    //columns: [':not'(15)],
-                }
-            },
-            {
-                text: '<i class="fa fa-file-code-o"></i>',
-                titleAttr: 'JSON',
-                action: function(e, dt, button, config) {
-                    var data = dt.buttons.exportData();
-                    $.fn.dataTable.fileSave(new Blob([JSON.stringify(data)]), 'Export.json');
-                }
-            },
-            {
-                extend: 'colvis',
-                text: '<i class="fa fa-columns"></i>',
-                titleAttr: 'Columns',
-            },
-        ],
         exportOptions: {
             columns: [0, 1, 2, 3, 4, 5, 6]
             //columns: ':not(:last-child)',

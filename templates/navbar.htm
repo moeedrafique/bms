@@ -13,7 +13,7 @@
 
                     <div class="navbar-logo">
 
-                        <a href="index-1.htm">
+                        <a href="{% url 'index' %}">
                             <img style="    max-width: 100%;
     height: auto;
     margin-left: -5px;
@@ -37,7 +37,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#!" class="btn btn-primary header-pos-btn">POS menu
+                                <a href="{% url 'create_sale' %}" class="btn btn-primary header-pos-btn">POS menu
                                     <i class="feather icon-shopping-cart"></i>
                                 </a>
                             </li>

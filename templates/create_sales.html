@@ -1,0 +1,583 @@
+{% extends 'base.htmL' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% block content %}
+<!-- Main-body start -->
+<div class="main-body">
+    <div class="page-wrapper">
+
+        <!-- Page-body start -->
+        <div class="page-body">
+            <h1>{{request.user.branch}}</h1>
+            <div class="row">
+                <!-- INVOICE Client -->
+                <div class="col-xl-7 col-md-7">
+                    <div class="card table-card">
+                        <div class="card-block">
+                            <div class="col-xl-12 col-md-12">
+                                <div style="" class="dt-responsive table-responsive">
+                                    <table id="stock-tbl" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                        <tr>
+                                            <th>#No</th>
+                                            <th>Product Name</th>
+                                            <th>Selling Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for product in products %}
+                                        <tr id="product_{{ product.id }}">
+                                            <td></td>
+                                            <td>{{ product.name }}</td>
+                                            <td>{{ product.price }}</td>
+                                            <td>
+                                                <button class="add-to-cart" data-product-id="{{ product.id }}"
+                                                        data-product-name="{{ product.name }}"
+                                                        data-product-price="{{ product.price }}">Add to Cart
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>#No</th>
+                                            <th>Product Name</th>
+                                            <th>Selling Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-5 custom-resize">
+                    <div>
+                        <div class="card card-with-shadow pr-2 col-12 mb-4 row align-items-center no-gutters">
+                            <div class="labels col-12 row border-down no-gutters py-2 mb-0"><small class="col-4">Selected
+                                Product</small> <small class="col-4">Quantity</small> <small
+                                    class="col-3">Sub-Total</small> <small class="col-1 text-right"></small></div>
+                            <div class="col-12 pr-2 cart-item-display">
+                                <!-- Cart section -->
+                                <div id="cart-section">
+                                    <!-- Cart details will be displayed here -->
+                                </div>
+                                <div data-v-10419a7a="" class="row no-gutters col-12 align-items-center px-0">
+                                    <div data-v-10419a7a="" class="row no-gutters col-12 mx-0">
+                                        <div data-v-10419a7a="" id="sub-total"
+                                             class="row no-gutters col-12 align-items-center justify-content-between pb-3 pt-5">
+                                            <div data-v-10419a7a=""
+                                                 class="row col-12 no-gutters justify-content-between border-down"><h5
+                                                    data-v-10419a7a="">Sub-Total</h5> <h5 id="totalAmountDisplay" data-v-10419a7a="">$ 0.00</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="accordion-panel">
+                                                <div class="accordion-heading" role="tab" id="headingOne">
+                                                    <h3 class="card-title accordion-title">
+                                                        <a class="accordion-msg scale_active collapsed ama"
+                                                           data-toggle="collapse" data-parent="#accordion"
+                                                           href="#collapseOne" aria-expanded="false"
+                                                           aria-controls="collapseOne">
+                                                            Apply Discount
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse in collapse" role="tabpanel"
+                                                     aria-labelledby="headingOne" style="">
+                                                    <div class="accordion-content accordion-desc">
+                                                        <!-- Add this HTML code for discount input -->
+                                                        <div class="row">
+                                                        <div class="col-6 mt-3">
+                                                          <input type="number" id="discountInput" class="form-control" placeholder="Enter discount">
+                                                        </div>
+                                                            <div class="col-6 mt-3">
+                                                          <button class="btn btn-primary" onclick="applyDiscount()">Apply Discount</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-panel">
+                                                <div class="accordion-heading" role="tab" id="headingTwo">
+                                                    <h3 class="card-title accordion-title">
+                                                        <a class="accordion-msg ama scale_active collapsed"
+                                                           data-toggle="collapse" data-parent="#accordion"
+                                                           href="#collapseTwo" aria-expanded="false"
+                                                           aria-controls="collapseTwo">
+                                                            Apply Deposit
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                                     aria-labelledby="headingTwo" style="">
+                                                    <div class="accordion-content accordion-desc">
+                                                        <!-- Add this HTML code for deposit input -->
+                                                        <div class="row">
+                                                        <div class="col-6 mt-3">
+                                                          <input type="number" id="depositInput" class="form-control" placeholder="Enter deposit">
+                                                        </div>
+                                                            <div class="col-6 mt-3">
+                                                          <button class="btn btn-primary" onclick="applyDeposit()">Apply Deposit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                            </div>
+                            <div data-v-8ff624aa=""
+                                 class="custom-disable cart-control row no-gutters pr-2 col-12 mx-0 py-3 px-0 align-items-center mt-1 justify-content-between"
+                                 viewmode="primary">
+                                <div data-v-8ff624aa="" id="discount-total"
+                                     class="row no-gutters col-12 align-items-center justify-content-between px-0"><h4
+                                        data-v-8ff624aa="" class="text-uppercase">Discount</h4> <h4 id="discountDisplay" data-v-8ff624aa=""> $
+                                    0.00</h4></div>
+                                <div data-v-8ff624aa="" id="deposit-total"
+                                     class="row no-gutters col-12 align-items-center justify-content-between px-0"><h4
+                                        data-v-8ff624aa="" class="text-uppercase">Deposit</h4> <h4 id="depositDisplay" data-v-8ff624aa=""> $
+                                    0.00</h4></div>
+                                <div data-v-8ff624aa="" id="grand-total"
+                                     class="row no-gutters col-12 align-items-center justify-content-between px-0"><h4
+                                        data-v-8ff624aa="" class="text-uppercase">Total</h4> <h4 id="remainingAmount" data-v-8ff624aa=""> $
+                                    0.00</h4></div>
+                                <button onclick="saveSale()" data-v-8ff624aa="" class="btn btn-primary col-12 py-2 mb-3 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-dollar-sign size-16"
+                                         data-v-8ff624aa="">
+                                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                    </svg>
+                                    <span data-v-8ff624aa="">PAY NOW</span></button>
+                                <button data-v-8ff624aa="" class="btn btn-warning col-4 py-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-pause size-16"
+                                         data-v-8ff624aa="">
+                                        <rect x="6" y="4" width="4" height="16"></rect>
+                                        <rect x="14" y="4" width="4" height="16"></rect>
+                                    </svg>
+                                    <span data-v-8ff624aa="">Hold</span></button>
+                                <button data-v-8ff624aa="" class="btn btn-danger col-3 py-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-x-square size-16"
+                                         data-v-8ff624aa="">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    </svg>
+                                    <span data-v-8ff624aa="">Cancel</span></button>
+                                <button onclick="printReceipt()" class="btn btn-info col-4 py-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-file-text size-16"
+                                         data-v-8ff624aa="">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg>
+                                    <span data-v-8ff624aa="">Print order</span></button> <!----> <!----> <!----></div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                .ama {
+                    margin-left: -16px;
+                    font-size: 1rem;
+                    color: #353c4e;
+                }
+                                                .empty-cart-message {
+    margin-top: 17%;
+}
+.border-down{
+    border-bottom: 1px solid #f0f2f5
+
+}
+
+.round-btn {
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    margin-right: 0.65rem
+    cursor: pointer
+    width: 1.45rem
+    height: 1.45rem
+    border-radius: 50%
+    background: #3a3c43
+}
+.custom-disable {
+    opacity: 0.5
+    pointer-events: none
+}
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite
+
+@keyframes pulse
+    0%, 100%
+        opacity: 1
+    50%
+        opacity: 0.5
+}
+#deposit-total > * {
+    font-size: 18.7px
+}
+#discount-total > * {
+    font-size: 18.7px
+}
+.cursor-pointer {
+    cursor: pointer!important;
+}
+.item-subtotal {
+    font-size: 12px;
+}
+.cart-item-display {
+    max-height: 80vh;
+    min-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-bottom: 0.5rem;
+    scrollbar-color: rgba(68,102,242,.333) hsla(0,0%,60%,0);
+    scrollbar-width: .25vw;
+}
+svg.size-16 {
+    height: 16px!important;
+    width: 16px!important;
+}
+.btn.btn-danger {
+    background-color: #fc2c10!important;
+    border-color: #fc2c10;
+    color: #fff;
+    transition: all .25s ease-in-out;
+}
+.btn.btn-warning, .btn.btn-warning:disabled:hover {
+    background-color: #fc6510;
+}
+.btn.btn-warning {
+    border-color: #fc6510;
+    color: #fff;
+    transition: all .25s ease-in-out;
+}
+.btn.btn-info {
+    background-color: #38a4f8!important;
+    border-color: #38a4f8;
+    color: #fff;
+    transition: all .25s ease-in-out;
+}
+
+
+
+                </style>
+            </div>
+            <!-- Page-body end -->
+        </div>
+    </div>
+</div>
+</div>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+var selectedProducts = [];
+
+// Function to check if a product is in the cart
+function isProductInCart(productId) {
+  return selectedProducts.some(function (product) {
+    return product.id === productId;
+  });
+}
+
+// Event listener for "Add to Cart" buttons
+$(document).on('click', '.add-to-cart', function () {
+  var productId = $(this).data('product-id');
+  var productName = $(this).data('product-name');
+  var productPrice = $(this).data('product-price');
+
+  // Check if the product is already in the cart
+  if (isProductInCart(productId)) {
+    var product = selectedProducts.find(function (p) {
+      return p.id === productId;
+    });
+
+    // Increment the quantity
+    product.quantity += 1;
+    // Update the subtotal
+    product.subtotal = product.price * product.quantity;
+  } else {
+    // Add the product to the cart
+    var product = {
+      id: productId,
+      name: $(this).data('product-name'),
+      price: parseFloat($(this).data('product-price')),
+      quantity: 1,
+      subtotal: parseFloat($(this).data('product-price'))
+    };
+
+    selectedProducts.push(product);
+  }
+
+  // Update the cart section
+  updateCartSection();
+});
+
+// Updated applyDiscount function
+function applyDiscount() {
+  var discountInput = $('#discountInput');
+  var discountAmount = parseFloat(discountInput.val()) || 0;
+
+  // Subtract the discount from the total
+  selectedProducts.discount = discountAmount;
+  updateCartSection();
+}
+
+// Updated applyDeposit function
+function applyDeposit() {
+  var depositInput = $('#depositInput');
+  var depositAmount = parseFloat(depositInput.val()) || 0;
+
+  // Set the deposit amount
+  selectedProducts.deposit = depositAmount;
+  updateCartSection();
+}
+
+// Update the cart section
+function updateCartSection() {
+  var cartSection = $('#cart-section');
+  var totalAmountDisplay = $('#totalAmountDisplay');
+  var discountDisplay = $('#discountDisplay');
+  var depositDisplay = $('#depositDisplay');
+  var remainingAmountDisplay = $('#remainingAmount');
+  cartSection.empty();
+
+  if (selectedProducts.length === 0) {
+     // Cart is empty, reset the total and display the message
+    totalAmountDisplay.text('$ 0.00');
+    discountDisplay.text('$ 0.00');
+    remainingAmountDisplay.text('$ 0.00');
+    depositDisplay.text('$ 0.00');
+
+    // Cart is empty, display the message
+    cartSection.append('<div class="empty-cart-message d-flex flex-column align-items-center justify-content-around">' +
+      '<div class="mb-5">' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart text-primary" style="transform: scale(3);">' +
+      '<circle cx="9" cy="21" r="1"></circle>' +
+      '<circle cx="20" cy="21" r="1"></circle>' +
+      '<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>' +
+      '</svg>' +
+      '</div>' +
+      '<h4 class="text-muted">No items to show</h4>' +
+      '</div>');
+  } else {
+    // Cart has items, display the items and total
+    //cartSection.append('<h2>Your Cart</h2>');
+    selectedProducts.forEach(function (product) {
+      var productHtml = '<div class="row no-gutters col-12 border-bottom py-3 align-items-center px-0">' +
+        '<div data-v-ca900908="" class="col-4 d-flex m-0 p-0">' +
+        '<div data-v-ca900908="" class="d-flex justify-content-center mr-1 cursor-pointer">' +
+        '<div data-v-ca900908="" class="round-btn light-bg">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down" data-v-ca900908="">' +
+        '<polyline points="6 9 12 15 18 9"></polyline>' +
+        '</svg>' +
+        '</div>' +
+        '</div>' +
+        '<div data-v-ca900908="" class="product-details">' +
+        '<p data-v-ca900908="" class="product-name mb-0">' +
+        product.name +
+        '</p>' +
+        '<small data-v-ca900908="" class="text-muted product-upc">' +
+        '#' + product.id + // Assuming product id is available
+        '</small>' +
+        '<br data-v-ca900908="">' +
+        '<small data-v-ca900908="" class="d-inline-block bg-info px-2 text-white pill">' +
+        'Tax - 5%' + // Assuming tax information is available
+        '</small>' +
+        '</div>' +
+        '</div>' +
+        '<div data-v-b8e8508e="" class="col-4 d-flex align-items-baseline" style="gap: 0.75rem;">' +
+        '<a data-v-b8e8508e="" class="text-primary text-decoration-none cursor-pointer" onclick="decreaseQuantity(' + product.id + ')">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle" data-v-b8e8508e="">' +
+        '<circle cx="12" cy="12" r="10"></circle>' +
+        '<line x1="8" y1="12" x2="16" y2="12"></line>' +
+        '</svg>' +
+        '</a>' +
+        '<p data-v-b8e8508e="" class="text-center cursor-pointer pt-3">' +
+        product.quantity +
+        '</p>' +
+        '<a data-v-b8e8508e="" class="text-primary text-decoration-none" style="cursor: pointer;" onclick="increaseQuantity(' + product.id + ')">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle" data-v-b8e8508e="">' +
+        '<circle cx="12" cy="12" r="10"></circle>' +
+        '<line x1="12" y1="8" x2="12" y2="16"></line>' +
+        '<line x1="8" y1="12" x2="16" y2="12"></line>' +
+        '</svg>' +
+        '</a>' +
+        '</div>' +
+        '<h6 name="unit_price" class="col-3 mb-0 item-subtotal">$' + product.subtotal.toFixed(2) + '</h6>' +
+        '<div class="col-1 item-remove-btn text-right">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle text-danger size-18" onclick="removeFromCart(' + product.id + ')">' +
+        '<circle cx="12" cy="12" r="10"></circle>' +
+        '<line x1="15" y1="9" x2="9" y2="15"></line>' +
+        '<line x1="9" y1="9" x2="15" y2="15"></line>' +
+        '</svg>' +
+        '</div>' +
+        '</div>';
+      cartSection.append(productHtml);
+    });
+    var discount = selectedProducts.discount || 0;
+    var deposit = selectedProducts.deposit || 0;
+
+    // Calculate the total after applying the discount
+    var totalAfterDiscount = calculateTotal() - discount;
+
+    // Calculate the remaining amount after deducting the deposit
+    var remainingAmount = Math.max(0, totalAfterDiscount - deposit);
+    console.log(remainingAmount);
+
+
+    // Display the discount dynamically
+    discountDisplay.text('$ ' + discount.toFixed(2));
+
+    // Display the discount dynamically
+    depositDisplay.text('$ ' + deposit.toFixed(2));
+
+    // Display the total dynamically
+    totalAmountDisplay.text('$ ' + calculateTotal());
+
+    // Display remaining total dynamically
+    remainingAmountDisplay.text('$ ' + remainingAmount.toFixed(2));
+
+    //cartSection.append('<p>Total: $' + calculateTotal() + '</p>');
+    // Display the discount and deposit information
+    //cartSection.append('<p>Discount: $' + discount.toFixed(2) + '</p>');
+    //cartSection.append('<p>Deposit: $' + deposit.toFixed(2) + '</p>');
+    //cartSection.append('<p>Remaining Amount: $' + remainingAmount.toFixed(2) + '</p>');
+  }
+}
+
+function increaseQuantity(productId) {
+  // Find the product in the selectedProducts array
+  var product = selectedProducts.find(p => p.id === productId);
+  if (product) {
+    // Increase the quantity
+    product.quantity++;
+    // Update the subtotal
+    product.subtotal = product.quantity * product.price;
+    // Update the cart section
+    updateCartSection();
+  }
+}
+
+function decreaseQuantity(productId) {
+  // Find the product in the selectedProducts array
+  var product = selectedProducts.find(p => p.id === productId);
+  if (product && product.quantity > 1) {
+    // Decrease the quantity
+    product.quantity--;
+    // Update the subtotal
+    product.subtotal = product.quantity * product.price;
+    // Update the cart section
+    updateCartSection();
+  }
+}
+
+function removeFromCart(productId) {
+  // Remove the product from the selectedProducts array
+  selectedProducts = selectedProducts.filter(p => p.id !== productId);
+  // Update the cart section
+  updateCartSection();
+}
+
+// Example function to calculate the total
+function calculateTotal() {
+  var total = 0;
+  selectedProducts.forEach(function (product) {
+    total += product.subtotal;
+  });
+  return total.toFixed(2);
+}
+function saveSale() {
+  // Assuming you have variables for user, branch, customer, and products
+  var user_id = 1; // Replace with actual user ID
+  var branch_id = 1; // Replace with actual branch ID
+  var customer_id = 1; // Replace with actual customer ID
+  var products = selectedProducts; // Use the selected products array
+
+  // Calculate total, discount, deposit, and grand total
+    var total = calculateTotal();
+    var discount = parseFloat($('#discountDisplay').text().replace('$', '')) || 0;
+    var deposit = parseFloat($('#depositDisplay').text().replace('$', '')) || 0;
+    //var grandTotal = remainingAmountDisplay;
+
+  var data = {
+    'user_id': user_id,
+    'branch_id': branch_id,
+    'customer_id': customer_id,
+    'products': products,
+    'total': total,
+    'discount': discount,
+    'deposit': deposit,
+  };
+
+  $.ajax({
+    type: 'POST',
+    url: '{% url 'save_sale' %}',  // Replace with the actual URL
+    contentType: 'application/json',
+    data: JSON.stringify(data),
+    success: function (response) {
+      if (response.success) {
+        // Sale saved successfully, you can perform further actions if needed
+        console.log('Sale saved with ID:', response.sale_id);
+      } else {
+        // Handle the case where the sale couldn't be saved
+        console.error('Error saving sale:', response.error);
+      }
+    },
+    error: function () {
+      // Handle AJAX error
+      console.error('Error sending AJAX request');
+    }
+  });
+}
+
+// Call the function to update the cart section
+updateCartSection();
+
+
+</script>
+        <!-- Add this button in your HTML -->
+<!-- print_receipt.js -->
+<script>
+function printReceipt() {
+    var receiptContent = document.getElementById('receipt-content').innerHTML;
+    var printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Receipt</title></head><body>');
+    printWindow.document.write(receiptContent);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+</script>
+
+{% endblock %}
+</body>
+</html>

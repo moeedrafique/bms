@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+                            <!-- Main-body start -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- HTML5 Export Buttons table start -->
+                                                <div class="card">
+                                                    <div class="card-header table-card-header">
+                                                        <h5>Stock Adjustment</h5>
+                                                        <div class="card-header-right">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <div class="float-md-right mb-3 mb-sm-3 mb-md-0">
+                                                                <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#adjustmentModal">Add adjustment</button>
+                                                                </div>
+                                                                <div class="modal fade" id="adjustmentModal" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Add Adjustment</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">×</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form enctype="multipart/form-data" class="row">
+                                                                                    <div class="form-element col-12 col-md-6 mb-4 ">
+                                                                                        <label>Branch/Warehouse</label>
+                                                                                        <div class="margin-right-8">
+                                                                                            <div class="single-filter search-filter-dropdown">
+                                                                                                <div class="dropdown dropdown-with-animation position-relative">
+                                                                                                    <div id="formData_branch_or_warehouse_id" data-toggle="dropdown">
+                                                                                                        <input type="text" placeholder="Enter branch/warehouse " class="form-control cursor-pointer">
+                                                                                                    </div> <!---->
+                                                                                                </div>
+                                                                                            </div> <!----></div>
+                                                                                    </div>
+                                                                                    <div class="form-element col-12 col-md-6 mb-4">
+                                                                                        <label>Date</label>
+                                                                                        <div class="margin-right-8">
+                                                                                            <span>
+                                                                                                <div class="date-picker-input"><div
+                                                                                                    class="input-group"><input placeholder="Enter date " class="form-control"> <div
+                                                                                                    class="input-group-append">
+                                                                                                    <span class="input-group-text">
+                                                                                                    <svg
+                                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                                    width="24"
+                                                                                                    height="24"
+                                                                                                    viewBox="0 0 24 24"
+                                                                                                    fill="none"
+                                                                                                    stroke="currentColor"
+                                                                                                    stroke-width="2"
+                                                                                                    stroke-linecap="round"
+                                                                                                    stroke-linejoin="round"
+                                                                                                    class="feather feather-calendar"><rect
+                                                                                                    x="3" y="4"
+                                                                                                    width="18"
+                                                                                                    height="18" rx="2"
+                                                                                                    ry="2"></rect><line
+                                                                                                    x1="16" y1="2"
+                                                                                                    x2="16"
+                                                                                                    y2="6"></line><line
+                                                                                                    x1="8" y1="2" x2="8"
+                                                                                                    y2="6"></line><line
+                                                                                                    x1="3" y1="10"
+                                                                                                    x2="21"
+                                                                                                    y2="10"></line></svg>
+                                                                                                    </span>
+                                                                                                    </div></div></div>
+                                                                                                <div class="vc-popover-content-wrapper"><!----></div></span>
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                    <hr>
+                                                                         <div class="form-element col-12 mb-4 row no-gutters">
+    <label class="col-12 col-md-6">Select product</label>
+    <div class="col-12">
+        <div class="single-filter search-filter-dropdown">
+            <div class="dropdown dropdown-with-animation position-relative">
+                <div id="latestAddedVariantToStockAdjustment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <select id="product_select" class="form-control cursor-pointer">
+                        <option selected>Select</option>
+                        {% for product in product %}
+                            <option value="{{ product.id }}">{{ product.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HTML for displaying product adjustment details -->
+<div id="product_adjustment_details" style="display: none;width:100%;">
+    <!-- Adjustment details will be dynamically appended here -->
+</div>
+                                                                                 <script>
+    // Function to handle product selection
+    document.getElementById('product_select').addEventListener('change', function() {
+        var productId = this.value;
+
+        // AJAX request to fetch product details based on selected product ID
+        fetch('/get_product_details/' + productId + '/')
+            .then(response => response.json())
+            .then(data => {
+                // Create a new row for the selected product
+                var adjustmentDetails = document.getElementById('product_adjustment_details');
+
+                // Check if labels have already been added
+                if (!adjustmentDetails.querySelector('.labels')) {
+                    // Add labels
+                    var labelsRow = document.createElement('div');
+                    labelsRow.className = 'labels col-12 row border-bottom no-gutters';
+                    labelsRow.innerHTML = `
+                        <p class="text-muted col-md-3">Product</p>
+                        <p class="text-muted col-md-2 align-items-center">Stock</p>
+                        <p class="text-muted col-md-3">Quantity</p>
+                        <p class="text-muted col-md-2">Type</p>
+                        <p class="text-muted col-md-2 text-right">Action</p>
+                    `;
+                    adjustmentDetails.appendChild(labelsRow);
+                }
+
+                // Add product details
+                var newRow = document.createElement('div');
+                newRow.className = 'values row no-gutters align-items-baseline justify-content-between col-md-12 border-bottom py-3';
+
+                newRow.innerHTML = `
+                    <div class="col-md-3 align-self-center">
+                        <p class="mb-0 text-primary">${data.name}</p>
+                        <small class="d-block text-muted">#${data.reference}</small>
+                    </div>
+                    <p class="col-md-2 align-items-center product_stock">${data.stock}</p>
+                    <div class="col-md-3 d-flex align-items-baseline quantity-control" style="gap: 1.5rem;">
+                        <a class="text-primary text-decoration-none minus_button" style="cursor: pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </a>
+                        <div class="count-input" style="width: 5rem;">
+                            <input type="number" name="item_unit_quantity" class="form-control item_unit_quantity" placeholder="" autocomplete="off" value="1">
+                        </div>
+                        <a class="text-primary plus_button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <div>
+                            <select class="custom-select adjustment_type" style="background-image: url('https://salex.gainhq.com/images/chevron-down-dark.svg');">
+                                <option value="addition">Addition</option>
+                                <option value="subtraction">Subtraction</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-primary text-right">
+                        <a class="close_button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                        </a>
+                    </div>
+                `;
+
+                adjustmentDetails.appendChild(newRow);
+
+                // Display adjustment details section
+                adjustmentDetails.style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching product details:', error));
+    });
+
+    // Function to handle close button click
+    document.getElementById('product_adjustment_details').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('close_button')) {
+            // Hide adjustment details section
+            document.getElementById('product_adjustment_details').style.display = 'none';
+        }
+    });
+
+    // Function to handle plus button click
+    document.getElementById('product_adjustment_details').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('plus_button')) {
+            var inputElement = event.target.closest('.quantity-control').querySelector('.item_unit_quantity');
+            var currentValue = parseInt(inputElement.value);
+            inputElement.value = currentValue + 1;
+        }
+    });
+
+    // Function to handle minus button click
+    document.getElementById('product_adjustment_details').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('minus_button')) {
+            var inputElement = event.target.closest('.quantity-control').querySelector('.item_unit_quantity');
+            var currentValue = parseInt(inputElement.value);
+            if (currentValue > 1) {
+                inputElement.value = currentValue - 1;
+            }
+        }
+    });
+</script>
+
+
+
+
+
+                                                                                    <div class="form-element col-12 mb-4 no-gutters">
+                                                                                        <label>Note</label>
+                                                                                        <div>
+                                                                                            <textarea type="textarea" id="formData_note" name="formData_note" placeholder="Enter note " spellcheck="false" class="form-control"></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                                                                                <button type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="dt-responsive table-responsive">
+                                                            <table id="stock-tbl" class="table table-striped table-bordered nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#No</th>
+                                                                        <th>Date</th>
+                                                                        <th>Reference No.</th>
+                                                                        <th>Note</th>
+                                                                        <th>Created by</th>
+                                                                        <th>Quantity</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for stock in product %}
+                                                            <tr>
+                                                                    <td></td>
+                                                                    <td>{{ stock.name }} </td>
+                                                                    <td><strong>{{ stock.quantity }} </strong></td>
+                                                                    <td>{{ stock.selling_price }}</td>
+                                                                    <td>{{ stock.category }} </td>
+                                                                    <td><div class="dropdown dropdown-action" style="width: 159px;">
+                                                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float: left"
+                                                                        ><i class="fa fa-ellipsis-v"></i>
+                                                                        </a>
+                                                                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(23px, 27px, 0px);">
+                                                                        <a href="{% url 'product_add' %}" class="dropdown-item edit_click">
+                                                                        <i class="fa fa-pencil m-r-5"></i>Add Stock </a>
+<!--                                                                        <a href="" class="dropdown-item edit_status "><i class="fa fa-pencil m-r-5"></i>Reduce Stock</a>-->
+                                                                        <a href="" class="dropdown-item edit_branch_click "><i class="fa fa-pencil m-r-5"></i>Edit Product </a>
+                                                                        <button class="delete-product-btn dropdown-item edit_branch_click " data-product-id="{{ stock.id }}"><i class="fa fa-pencil m-r-5"></i>Delete Product </button></div>
+                                                                        </div><style>.dropdown-toggle::after{display:none;}</style></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+<!--                                                                <tfoot>-->
+<!--                                                                    <tr>-->
+<!--&lt;!&ndash;                                                                        <th>#No</th>&ndash;&gt;-->
+<!--                                                                        <th>Product</th>-->
+<!--                                                                        <th>Batch No</th>-->
+<!--                                                                        <th>Category</th>-->
+<!--                                                                        <th>Stock</th>-->
+<!--                                                                        <th>Selling Price</th>-->
+<!--                                                                        <th>Date Created</th>-->
+<!--                                                                        <th>Action</th>-->
+<!--                                                                    </tr>-->
+<!--                                                                </tfoot>-->
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- HTML5 Export Buttons end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+    // JavaScript
+    $(document).ready(function () {
+        $(".delete-product-btn").click(function () {
+            // Get the product ID from the data attribute
+            var productId = $(this).data('product-id');
+            console.log("Product ID:", productId);  // Add this line
+
+            // Confirm deletion (optional)
+            if (confirm("Are you sure you want to delete this product?")) {
+                // Make an AJAX request to the delete_product URL
+                $.ajax({
+                    type: "POST",
+                    url: "/delete-product/" + productId + "/",
+                    success: function (data) {
+                        if (data.success) {
+                            // Optionally, update the UI or perform additional actions after successful deletion
+                            console.log("Product deleted successfully");
+                        } else {
+                            // Handle errors and display messages
+                            console.log("Error deleting product");
+                            // Example: Display errors in an alert
+                            alert("Error deleting product");
+                        }
+                    },
+                    error: function (error) {
+                        // Handle error
+                        console.error("Error deleting product", error);
+                    },
+                });
+            }
+        });
+    });
+</script>
+    {% endblock %}
+</body>
+</html>

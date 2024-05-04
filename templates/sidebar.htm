@@ -13,7 +13,7 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
+                                    <a href="{% url 'index' %}">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
@@ -25,64 +25,78 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="{% url 'all_product' %}">
+                                            <a href="{% url 'all_products' %}">
                                                 <span class="pcoded-mtext">Product List</span>
                                             </a>
                                         </li>
+
                                         <li class=" ">
                                             <a href="{% url 'product_add' %}">
                                                 <span class="pcoded-mtext">Add Product</span>
                                             </a>
                                         </li>
+
 <!--                                        <li class=" ">-->
-<!--                                            <a href="{% url 'product_add' %}">-->
+<!--                                            <a href="">-->
 <!--                                                <span class="pcoded-mtext">Categories</span>-->
 <!--                                            </a>-->
 <!--                                        </li>-->
 <!--                                        <li class=" ">-->
-<!--                                            <a href="{% url 'product_add' %}">-->
+<!--                                            <a href="">-->
 <!--                                                <span class="pcoded-mtext">Units</span>-->
 <!--                                            </a>-->
 <!--                                        </li>-->
                                     </ul>
                                 </li>
-<!--                                <li class="pcoded-hasmenu">-->
-<!--                                    <a href="javascript:void(0)">-->
-<!--                                        <span class="pcoded-micon"><i class="feather icon-gitlab"></i></span>-->
-<!--                                        <span class="pcoded-mtext">Inventory</span>-->
-<!--                                    </a>-->
-<!--                                    <ul class="pcoded-submenu">-->
-<!--                                        <li class=" ">-->
-<!--                                            <a href="draggable.htm">-->
-<!--                                                <span class="pcoded-mtext">Draggable</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
-<!--                                <li class="pcoded-hasmenu">-->
-<!--                                    <a href="javascript:void(0)">-->
-<!--                                        <span class="pcoded-micon"><i class="feather icon-shopping-bag"></i></span>-->
-<!--                                        <span class="pcoded-mtext">POS</span>-->
-<!--                                    </a>-->
-<!--                                    <ul class="pcoded-submenu">-->
-<!--                                        <li class=" ">-->
-<!--                                            <a href="session-timeout.htm">-->
-<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                        <li class=" ">-->
-<!--                                            <a href="session-idle-timeout.htm">-->
-<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                        <li class=" ">-->
-<!--                                            <a href="offline.htm">-->
-<!--                                                <span class="pcoded-mtext">Offline</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
+                                {% if request.user.user_type == 1 or request.user.user_type == 2 %}
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-gitlab"></i></span>
+                                        <span class="pcoded-mtext">Inventory</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'all_inventory' %}">
+                                                <span class="pcoded-mtext">Stock</span>
+                                            </a>
+                                        </li>
+                                         <li class="">
+                                            <a href="{% url 'all_inventory' %}">
+                                                <span class="pcoded-mtext">Stock Adjustment</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'inventory_add' %}">
+                                                <span class="pcoded-mtext">Add Inventory</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {% endif %}
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-shopping-bag"></i></span>
+                                        <span class="pcoded-mtext">POS</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="{% url 'create_sale' %}">
+                                                <span class="pcoded-mtext">Sales View</span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="session-idle-timeout.htm">
+                                                <span class="pcoded-mtext">Returns</span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="offline.htm">
+                                                <span class="pcoded-mtext">Invoice</span>
+                                            </a>
+                                        </li>
 
-<!--                                    </ul>-->
-<!--                                </li>-->
+                                    </ul>
+                                </li>
 <!--                                <li class="pcoded-hasmenu">-->
 <!--                                    <a href="javascript:void(0)">-->
 <!--                                        <span class="pcoded-micon"><i class="feather icon-dollars"></i></span>-->
@@ -136,22 +150,23 @@
 <!--                                        </li>-->
 <!--                                    </ul>-->
 <!--                                </li>-->
+                                {% if request.user.user_type == 1 or request.user.user_type == 2 %}
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                                         <span class="pcoded-mtext">Contacts</span>
                                     </a>
                                     <ul class="pcoded-submenu">
-<!--                                        <li class=" ">-->
-<!--                                            <a href="session-timeout.htm">-->
-<!--                                                <span class="pcoded-mtext">Session Timeout</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                        <li class=" ">-->
-<!--                                            <a href="session-idle-timeout.htm">-->
-<!--                                                <span class="pcoded-mtext">Session Idle Timeout</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
+                                        <li class=" ">
+                                            <a href="{% url 'all_customers' %}">
+                                                <span class="pcoded-mtext">Customers</span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="{% url 'all_suppliers' %}">
+                                                <span class="pcoded-mtext">Suppliers</span>
+                                            </a>
+                                        </li>
 <!--                                        <li class=" ">-->
 <!--                                            <a href="offline.htm">-->
 <!--                                                <span class="pcoded-mtext">Offline</span>-->
@@ -160,6 +175,7 @@
 
                                     </ul>
                                 </li>
+                                {% endif %}
 <!--                                <li class="pcoded-hasmenu">-->
 <!--                                    <a href="javascript:void(0)">-->
 <!--                                        <span class="pcoded-micon"><i class="feather icon-report"></i></span>-->
@@ -184,8 +200,9 @@
 
 <!--                                    </ul>-->
 <!--                                </li>-->
+                                {% if request.user.user_type == 1 %}
                                 <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
+                                    <a href="{% url 'manage_user_permissions' %}">
                                         <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                                         <span class="pcoded-mtext">Users & Roles</span>
                                     </a>
@@ -208,6 +225,8 @@
 
                                     </ul>
                                 </li>
+                                {% endif %}
+                                {% if request.user.user_type == 1 %}
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
@@ -232,6 +251,7 @@
 
                                     </ul>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </nav>

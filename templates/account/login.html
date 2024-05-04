@@ -66,7 +66,7 @@
                         <form method="POST" action="{% url 'account_login' %}" class="md-float-material form-material">
                             {% csrf_token %}
                             <div class="text-center">
-                                <img style="width:35%;" src="{% static 'libraries\assets\images\Shoukat CE2.png' %}" alt="logo.png">
+                                <img style="width:35%;" src="{% static 'libraries\assets\images\logo.png' %}" alt="logo.png">
                             </div>
                             <div class="auth-box card">
                                 <div class="card-block">
@@ -181,28 +181,16 @@
         <script type="text/javascript" src="{% static 'libraries\bower_components\bootstrap\js\bootstrap.min.js' %}"></script>
                 <!-- iziToast js -->
         <script src="{% static 'libraries\assets\js\iziToast-master\dist\js\iziToast.min.js' %}" type="text/javascript"></script>
-        {% if messages %}
+        {% if form.errors %}
         <script>
-                {% for message in messages %}
-                iziToast.show({
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                title: 'Success:',
-                message: '{{ message }}',
-                color: 'green',
-                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                title: 'Note:',
-                message: '{{ message }}',
-                color: 'blue',
-                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-                title: 'Warning:',
-                message: '{{ message }}',
-                color: 'yellow',
-                {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                title: 'Error:',
-                message: '{{ message }}',
-                color: 'red',
-                    {% endif %}
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors  %}
+                    iziToast.show({
 
+                    title: 'Error:',
+                    message: '{{ error }}',
+                    color: 'red',
+                    {% endfor %}
                 {% endfor %}
             });
         </script>

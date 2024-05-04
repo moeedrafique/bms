@@ -1,0 +1,145 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Adminty - Premium Admin Template by Colorlib </title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="#">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="libraries\assets\images\favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libraries\bower_components\bootstrap\css\bootstrap.min.css' %}">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libraries\assets\icon\feather\css\feather.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="libraries\assets\icon\font-awesome\css\font-awesome.min.css">
+    <!-- radial chart -->
+    <link rel="stylesheet" href="{% static 'libraries\assets\pages\chart\radial\css\radial.css' %}" type="text/css" media="all">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libraries\assets\css\style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'libraries\assets\css\jquery.mCustomScrollbar.css' %}">
+</head>
+
+<body>
+                    {% block content %}
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="card">
+                                                    <form id="productForm" method="post">
+                                                        {% csrf_token %}
+                                                    <div class="card-block">
+                                                        <div class="row" style="padding: 5px;
+    margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="sub-title">Supplier Details</div>
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label">Company Name*</label>
+                    <div class="col-md-8">
+                        {% render_field form.name id="name" class="form-control" placeholder="Enter Name" %}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="brn" class="col-md-4 col-form-label">BRN</label>
+                    <div class="col-md-8">
+                        {% render_field form.brn id="brn" class="form-control" placeholder="Enter BRN" %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vat" class="col-md-4 col-form-label">VAT</label>
+                    <div class="col-md-8">
+                        {% render_field form.vat id="vat" class="form-control" placeholder="Enter VAT" %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="address" class="col-md-4 col-form-label">Address</label>
+                    <div class="col-md-8">
+                        {% render_field form.address id="address" class="form-control" placeholder="Enter Address" %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="contact_person" class="col-md-4 col-form-label">Contact Person</label>
+                    <div class="col-md-8">
+                        {% render_field form.contact_person id="contact_person" class="form-control" placeholder="Enter Contact Person" %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-md-4 col-form-label">Contact Number</label>
+                    <div class="col-md-8">
+                        {% render_field form.contact_number id="description" class="form-control" placeholder="Enter Contact Number" %}
+                    </div>
+                </div>
+                    <button type="submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+            </div>
+
+        </div>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#productForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '{% url "product_add" %}',
+          data: $('#productForm').serialize(),
+          success: function (data) {
+            if (data.success) {
+              $('#successMessage').show();
+              $('#errorMessage').hide();
+              // Optionally, you can reset the form or redirect to another page
+              $('#productForm')[0].reset();
+              // window.location.href = '{% url "index" %}';
+            } else {
+              $('#successMessage').hide();
+              $('#errorMessage').show();
+            }
+          },
+          error: function () {
+            alert('An error occurred while submitting the form.');
+          }
+        });
+      });
+    });
+  </script>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+{% endblock %}
+</body>
+
+</html>

@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'widget_tweaks',
+    'import_export',
+
 ]
 
-AUTH_USER_MODEL="pos.CustomUser"
+AUTH_USER_MODEL= "pos.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

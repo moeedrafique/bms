@@ -1,0 +1,417 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+                            <!-- Main-body start -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+    <div class="float-md-right mb-3 mb-sm-3 mb-md-2">
+        <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#default-Modal">Invite User</button>
+    </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <!-- HTML5 Export Buttons table start -->
+                                                <div class="card">
+                                                    <div class="card-header table-card-header">
+                                                        <h5>Users</h5>
+                                                        <div class="card-header-right">
+                                                </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="dt-responsive table-responsive custom-scrollbar table-view-responsive pt-primary px-primary">
+                                                            <table id="stock-tbl" class="table mb-0">
+                                                                <thead>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% for user in users %}
+                                                                    <tr class=""><!---->
+                                                                        <td data-title="User"
+                                                                            class="datatable-td pt-0 border-top-0"><span
+                                                                                class=""><div data-v-d3e90e30=""
+                                                                                              class="media align-items-center"
+                                                                                              table-id="user-table"><div
+                                                                                data-v-d3e90e30="" class="avatars-w-50"><div
+                                                                                data-v-d3e90e30=""><div
+                                                                                class="no-img rounded-circle avatar-shadow">
+            {{user.first_name|first}}{{user.last_name|first}}
+        </div> <!----></div></div> <div data-v-d3e90e30="" class="media-body ml-3">
+            {{user.first_name}} {{user.last_name}}
+            <p data-v-d3e90e30="" class="text-muted font-size-90 mb-0">{{user.email}}</p>
+            <span data-v-d3e90e30="" class="d-inline-block bg-secondary px-2 text-white pill">{{ user.user_type }}</span></div></div></span>
+                                                                        </td>
+                                                                        <td data-title="Status"
+                                                                            class="datatable-td pt-0 border-top-0">
+                                                                            <span><span
+                                                                                    class="badge badge-pill badge-success">Active</span></span>
+                                                                        </td>
+                                                                        <td data-title="Actions"
+                                                                            class="datatable-td text-md-right pt-0 border-top-0"><span><div
+                                                                                class="dropdown options-dropdown d-inline-block"><button
+                                                                                type="button" data-toggle="dropdown"
+                                                                                title="Actions" class="btn-option btn"><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                                fill="none" stroke="currentColor"
+                                                                                stroke-width="2" stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                class="feather feather-more-vertical"><circle
+                                                                                cx="12" cy="12" r="1"></circle><circle
+                                                                                cx="12" cy="5" r="1"></circle><circle
+                                                                                cx="12" cy="19"
+                                                                                r="1"></circle></svg></button> <div
+                                                                                class="dropdown-menu dropdown-menu-right py-2 mt-1"><a
+                                                                                href="#" class="dropdown-item px-4 py-2">
+                Edit
+            </a></div></div></span></td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+
+                                                            </table>
+                                                              <style>
+                .avatars-w-50 .no-img, .avatars-w-50 img {
+    height: 50px;
+    width: 50px;
+}
+.avatar-shadow {
+    box-shadow: -2px 2px 4px 0 rgba(0,0,0,.2)!important;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+                .avatars-w-50 .no-img {
+    align-items: center;
+    background-color: #3a3c43;
+    color: #797d8d;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+}
+                .pill[data-v-d3e90e30] {
+    border-radius: 5rem;
+    font-size: .625rem;
+}
+                    .badge {
+    color: #fff;
+    font-size: 12px;
+    padding: 0.55rem 1.2rem;
+}
+.badge.badge-pill {
+    border-radius: 20px !important;
+}
+.badge-success {
+    background-color: #46c35f;
+    color: #fff;
+}
+.dropdown.options-dropdown .btn-option {
+    border-radius: 50%;
+    color: #4466f2;
+    height: 30px;
+    padding: 0;
+    width: 31px;
+}
+.dropdown.options-dropdown .btn-option svg {
+    height: 14px;
+    width: 14px;
+}
+.dropdown .dropdown-menu {
+    background-color: var(--dropdown-menu-bg);
+    border: 0;
+    box-shadow: var(--default-box-shadow);
+    color: var(--default-font-color);
+    font-size: .935rem;
+    left: inherit;
+
+}
+                </style>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- HTML5 Export Buttons end -->
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <!-- HTML5 Export Buttons table start -->
+                                                <div class="card">
+                                                    <div class="card-header table-card-header">
+                                                        <h5>Roles</h5>
+                                                        <div class="card-header-right">
+                                                </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="dt-responsive table-responsive custom-scrollbar table-view-responsive pt-primary px-primary">
+                                                            <table id="stock-tbl" class="table mb-0">
+                                                                <thead>
+                                                                <tr><!----> <th track-by="0" class="datatable-th pt-0"><span class="font-size-default"><span>
+                            Role name
+                        </span></span></th><th track-by="1" class="datatable-th pt-0"><span class="font-size-default"><span>
+                            Permission
+                        </span></span></th><th track-by="2" class="datatable-th pt-0"><span class="font-size-default"><span>
+                            Users
+                        </span></span></th><th track-by="3" class="datatable-th pt-0 text-right"><span class="font-size-default">
+                        Actions
+                    </span></th></tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% for user in users %}
+                           <tr class=""><!----> <td data-title="Role name" class="datatable-td"><span class="">
+                            {{ user.user_type }}
+                        </span></td>
+                               <td data-title="Permission" class="datatable-td"><span>
+                                   <button type="button" class="btn btn-sm btn-primary px-3 py-1" data-toggle="modal" data-target="#permission-Modal">View</button>
+</span></td>
+                               <td data-title="Users" class="datatable-td"><span class=""><div avatars-group-class="avatars-group-w-50" name="exampleAvatarsGroup2" table-id="role-table"><div class="avatar-group avatars-group-w-50"><div class="no-img rounded-circle avatar-bordered avatar-shadow">
+                JD
+            </div> <!----></div></div></span></td><td data-title="Actions" class="datatable-td text-md-right"><span><div class="dropdown options-dropdown d-inline-block"><button type="button" data-toggle="dropdown" title="Actions" class="btn-option btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button> <div class="dropdown-menu dropdown-menu-right py-2 mt-1"><a href="#" class="dropdown-item px-4 py-2">
+            Manage Users
+        </a></div></div></span></td></tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+
+                                                            </table>
+                                                              <style>
+                .avatars-w-50 .no-img, .avatars-w-50 img {
+    height: 50px;
+    width: 50px;
+}
+.avatar-shadow {
+    box-shadow: -2px 2px 4px 0 rgba(0,0,0,.2)!important;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+                .avatars-w-50 .no-img {
+    align-items: center;
+    background-color: #3a3c43;
+    color: #797d8d;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+}
+                .pill[data-v-d3e90e30] {
+    border-radius: 5rem;
+    font-size: .625rem;
+}
+                    .badge {
+    color: #fff;
+    font-size: 12px;
+    padding: 0.55rem 1.2rem;
+}
+.badge.badge-pill {
+    border-radius: 20px !important;
+}
+.badge-success {
+    background-color: #46c35f;
+    color: #fff;
+}
+.dropdown.options-dropdown .btn-option {
+    border-radius: 50%;
+    color: #4466f2;
+    height: 30px;
+    padding: 0;
+    width: 31px;
+}
+.dropdown.options-dropdown .btn-option svg {
+    height: 14px;
+    width: 14px;
+}
+.dropdown .dropdown-menu {
+    background-color: var(--dropdown-menu-bg);
+    border: 0;
+    box-shadow: var(--default-box-shadow);
+    color: var(--default-font-color);
+    font-size: .935rem;
+    left: inherit;
+
+}
+                </style>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- HTML5 Export Buttons end -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Invite User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+            </div>
+            <div class="modal-body">
+                <form id="invitationForm" method="post" action="{% url 'send_invitation' %}">
+                                                        {% csrf_token %}
+
+                                                        <div class="row" style="padding: 5px;
+    margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="recipient_email" class="col-md-4 col-form-label">Recipient Email</label>
+                    <div class="col-md-8">
+<input type="email" name="recipient_email" maxlength="254" placeholder="Enter Recipient Email" class="form-control" id="recipient_email" required="">                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="branch" class="col-md-4 col-form-label">Branch Name*</label>
+                    <div class="col-md-8">
+<select name="branch" placeholder="Select Branch Name" class="form-control" id="branch">
+  <option value="" selected="">---------</option>
+
+  <option value="1">Patisserie Nabeel (Warehouse)</option>
+
+  <option value="2">Branch (Branch)</option>
+
+</select>                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="role" class="col-md-4 col-form-label">Role</label>
+                    <div class="col-md-8">
+<select name="role" placeholder="Select Role" class="form-control" id="role" required="">
+  <option value="" selected="">---------</option>
+
+  <option value="1">Admin</option>
+
+  <option value="2">Store Manager</option>
+
+  <option value="3">Staff</option>
+
+</select>                    </div>
+                </div>
+            </div>
+
+        </div>
+
+                                                    </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light ">Invite</button>
+            </div>
+        </div>
+    </div>
+</div>
+                                    <div class="modal fade" id="permission-Modal" tabindex="-1" role="dialog" style="z-index: 1050; display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Manage Permissions</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+            </div>
+            <div class="modal-body">
+                <div id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="accordion-panel">
+                        <div class="accordion-heading" role="tab" id="headingOne">
+                            <h3 class="card-title accordion-title">
+                            <a class="accordion-msg scale_active collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Dashboard
+                            </a>
+                        </h3>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse in collapse" role="tabpanel" aria-labelledby="headingOne" style="">
+                            <div class="accordion-content accordion-desc">
+                                {% for product_permission in product_permissions %}
+                                <div>
+                                    <div class="app-checkbox-group">
+                                        <div class="customized-checkbox checkbox-default">
+    <input type="checkbox" name="product_permissions" value="{{ product_permission.id }}" {% if product_permission in user_permissions %} checked {% endif %}>
+                                            <label>{{ product_permission.name }}</label>
+                                        </div>
+                                    </div> <!---->
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light ">Invite</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                    <!-- Page-body end -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+    // JavaScript
+    $(document).ready(function () {
+        $(".delete-product-btn").click(function () {
+            // Get the product ID from the data attribute
+            var productId = $(this).data('product-id');
+            console.log("Product ID:", productId);  // Add this line
+
+            // Confirm deletion (optional)
+            if (confirm("Are you sure you want to delete this product?")) {
+                // Make an AJAX request to the delete_product URL
+                $.ajax({
+                    type: "POST",
+                    url: "/delete-product/" + productId + "/",
+                    success: function (data) {
+                        if (data.success) {
+                            // Optionally, update the UI or perform additional actions after successful deletion
+                            console.log("Product deleted successfully");
+                        } else {
+                            // Handle errors and display messages
+                            console.log("Error deleting product");
+                            // Example: Display errors in an alert
+                            alert("Error deleting product");
+                        }
+                    },
+                    error: function (error) {
+                        // Handle error
+                        console.error("Error deleting product", error);
+                    },
+                });
+            }
+        });
+    });
+</script>
+    {% endblock %}
+</body>
+</html>
+<!-- manage_user_permissions.html -->
+<form method="post">
+  {% csrf_token %}
+  <select name="user_id">
+    {% for user in users %}
+      <option value="{{ user.id }}">{{ user.username }}</option>
+    {% endfor %}
+  </select>
+  <br>
+  {% for permission in permissions %}
+    <input type="checkbox" name="permissions" value="{{ permission.id }}"> {{ permission.name }}<br>
+  {% endfor %}
+  <br>
+  <button type="submit">Save Permissions</button>
+</form>
